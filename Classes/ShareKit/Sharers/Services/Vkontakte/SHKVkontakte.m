@@ -517,7 +517,9 @@
 		reqURl = [reqURl stringByAppendingFormat:@"&captcha_sid=%@&captcha_key=%@", captcha_sid, [self URLEncodedString: captcha_user]];
 	}
     
-    [SHKRequest startWithURL:[NSURL URLWithString:reqURl] params:[NSString stringWithFormat:@"message=%@", [self URLEncodedString:self.item.text]] method:@"POST" completion:completion];
+    NSString *message = (self.item.text != nil && [self.item.text length]) ? self.item.text : self.item.title;
+    
+    [SHKRequest startWithURL:[NSURL URLWithString:reqURl] params:[NSString stringWithFormat:@"message=%@", [self URLEncodedString:message]] method:@"POST" completion:completion];
 }
 
 - (BOOL)isRequestFinishedWithoutError:(SHKRequest *)aRequest
